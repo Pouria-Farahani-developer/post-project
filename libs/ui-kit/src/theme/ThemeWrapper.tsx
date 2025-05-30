@@ -9,26 +9,31 @@ import en from 'antd/lib/locale/en_US';
 import { changeLanguage } from '@myapp/libs/translation';
 import { darkTheme, lightTheme } from './theme';
 
+import { StyleSheetManager } from 'styled-components';
+import rtlPlugin from 'stylis-plugin-rtl';
 
 const ThemeWrapper = ({ children }: { children: ReactNode }) => {
   const { isDarkMode, language } = useTheme();
   const antdLocale = language === 'fa_IR' ? fa_IR : en;
-  const antdDirections = language === 'fa_IR' ? 'rtl' : 'ltr';
+  const antdDirection = language === 'fa_IR' ? 'rtl' : 'ltr';
 
   useEffect(() => {
     if (language) {
       changeLanguage(language);
+      document.documentElement.dir = antdDirection;
+      document.documentElement.lang = language === 'fa_IR' ? 'fa' : 'en';
     }
-  }, [language]);
-
+  }, [language, antdDirection]);
 
   return (
     <ConfigProvider
       locale={antdLocale}
-      direction={antdDirections}
+      direction={antdDirection}
       theme={isDarkMode ? darkTheme : lightTheme}
     >
-      <AntdRegistry>{children}</AntdRegistry>
+      <StyleSheetManager stylisPlugins={antdDirection === 'rtl' ? [rtlPlugin] : []}>
+        <AntdRegistry>{children}</AntdRegistry>
+      </StyleSheetManager>
     </ConfigProvider>
   );
 };
