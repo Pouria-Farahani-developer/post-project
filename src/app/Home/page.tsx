@@ -1,13 +1,8 @@
-'use client';
-import {  loadTr } from '@myapp/libs/translation';
+import React from 'react';
+import { HomeWidget } from '@myapp/widgets';
 
-import fa from './locale/fa';
-import en from './locale/en';
-import App from './components/app/app';
-
-const HomeWidget: React.FC = () => {
-  loadTr({ en, fa });
-  return <App />;
+const HomePage: React.FC = () => {
+  return <HomeWidget />;
 };
 
-export default HomeWidget;
+export default HomePage;
