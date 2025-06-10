@@ -53,6 +53,7 @@
     "@types/react-is": "19.0.0",
     "@types/styled-components": "5.1.26",
     "babel-jest": "^29.7.0",
+    "babel-plugin-styled-components": "1.10.7",
     "eslint": "^9.8.0",
     "eslint-config-next": "14.2.16",
     "eslint-config-prettier": "^9.0.0",
