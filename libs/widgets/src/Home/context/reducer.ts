@@ -1,53 +1,46 @@
-export const initialStateValue = {
-  deposits: [],
-  message: null,
-  depositId: null,
-  productId: null,
-  visitorInformation: {
-    customerType: null,
-    customerNumber: null,
-    customerName: '',
-    uniqueIdentifier: null,
-    isConfirmed: false,
-    beneficiaryStockPercent: null,
-    withdrawal: false,
-    sendSms: false,
-    customerMobile: null,
-    depositCustomerRelationType: null,
-    depositOwnerWithCustomerRelationship: null,
-  },
-  beneficiaries: [],
+import { INITIAL_PAGE, INITIAL_ROW_PER_PAGE } from '../utils/const';
+
+const initialFilters: any = {
+  name: null,
+  code: null,
 };
 
-export const reducer = (state: any, action: any) => {
+export const initialStateValue: any = {
+  table: {
+    filters: initialFilters,
+    submit: initialFilters,
+    pagination: {
+      limit: INITIAL_ROW_PER_PAGE,
+      page: INITIAL_PAGE,
+    },
+  },
+  message: null,
+};
+
+export const reducer = (state: any, action: any): any  => {
+  //console.log(action.type, state, action);
   switch (action.type) {
     case 'UPDATE_GLOBAL_MESSAGE': {
       state.message = action.payload;
       return;
     }
 
-    case 'UPDATE_VISITOR_INFO': {
-      state.visitorInformation = {
-        ...state.visitorInformation,
-        ...action.payload,
-      };
+    case 'UPDATE_SUBMIT': {
+      state.table.submit = { ...state.table.submit, ...action.payload };
       return;
     }
 
-    case 'ADD_PRODUCT_ID': {
-      state.productId = action.payload;
+    case 'UPDATE_FILTERS': {
+      state.table.filters = { ...state.table.filters, ...action.payload };
       return;
     }
 
-    case 'ADD_DEPOSIT_ID': {
-      state.depositId = action.payload;
+    case 'UPDATE_PAGINATION': {
+      state.table.pagination = { ...state.table.pagination, ...action.payload };
       return;
     }
-    case 'UPDATE_STEP': {
-      state.currentStep = action.payload;
-      return;
-    }
+
     default:
-      throw new Error(`this action type is not supported => ${action.type}`);
+      throw new Error(`this action type is not supported => ${action['type']}`);
   }
 };

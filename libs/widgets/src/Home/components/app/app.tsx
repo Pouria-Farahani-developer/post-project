@@ -1,20 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Breadcrumb, Layout, Menu, Steps, Switch, theme } from 'antd';
 import { useTr } from '@myapp/libs/translation';
 import { breadcrumbItems, items, stepItems } from '../../utils';
 import { useTheme } from '@myapp/libs/ui-kit';
-import { addProductIdAction, useAppDispatch, useAppState } from '../../context';
-
-
 
 const { Content, Footer, Sider } = Layout;
 
 const App: React.FC = () => {
   const [t] = useTr();
 
-  const state = useAppState();
-
-  const dispatch = useAppDispatch();
 
 
   const [collapsed, setCollapsed] = useState(false);
@@ -24,8 +18,6 @@ const App: React.FC = () => {
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
-
-
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
