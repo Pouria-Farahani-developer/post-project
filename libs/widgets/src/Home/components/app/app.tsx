@@ -3,16 +3,13 @@ import { Breadcrumb, Layout, Menu, Steps, Switch, theme } from 'antd';
 import { useTr } from '@myapp/libs/translation';
 import { breadcrumbItems, items, stepItems } from '../../utils';
 import { useTheme } from '@myapp/libs/ui-kit';
-import { useAppDispatch, useAppState } from '../../context';
 
 const { Content, Footer, Sider } = Layout;
 
 const App: React.FC = () => {
   const [t] = useTr();
 
-  const state = useAppState();
 
-  const dispatch = useAppDispatch();
 
   const [collapsed, setCollapsed] = useState(false);
 
