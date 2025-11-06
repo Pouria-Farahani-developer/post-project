@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useState } from 'react';
-import { ToastContainer } from 'react-toastify';
+import React, { useEffect, useState } from 'react';
+import { toast, ToastContainer } from 'react-toastify';
 import { Layout, Menu, Switch, theme } from 'antd';
 import { usePathname } from 'next/navigation';
 import 'antd/dist/reset.css';
@@ -13,13 +13,11 @@ import { Header } from 'antd/es/layout/layout';
 import "../global.css"
 
 
-
-
 const MainLayoutChildren = ({ children }: React.PropsWithChildren) => {
   const [t] = useTr();
   const pathname = usePathname()
   const [collapsed, setCollapsed] = useState(true);
-  const { isDarkMode, toggleTheme, toggleLanguage, language } = useTheme();
+  const { isDarkMode, toggleTheme, toggleLanguage, language, isFirstLogin, setFirstLogin } = useTheme();
   const { Content, Footer, Sider } = Layout;
 
   const selectedKeys = pathname?.replace(/^\/+/, '');
@@ -28,12 +26,19 @@ const MainLayoutChildren = ({ children }: React.PropsWithChildren) => {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
 
+  useEffect(() => {
+    if (isFirstLogin) {
+      toast(t('message.config_username'),{type:"warning"});
+      setFirstLogin(false);
+    }
+  }, [isFirstLogin, setFirstLogin, t]);
 
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
       <ToastContainer
         position="top-left"
+        pauseOnFocusLoss
         rtl={true}
         autoClose={5000}
         style={{ fontFamily: "IRANSans", fontWeight: '500' }}

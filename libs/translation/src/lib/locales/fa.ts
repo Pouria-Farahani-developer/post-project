@@ -36,5 +36,6 @@ export default {
   },
   message: {
     no_request: 'هیچ درخواستی ثبت نشده است.',
+    config_username : 'لطفا پروفایل کاربری خود را تکمیل کنید'
   },
 };

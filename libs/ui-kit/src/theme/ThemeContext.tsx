@@ -1,4 +1,5 @@
-'use client'
+'use client';
+
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
 interface ThemeContextType {
@@ -8,6 +9,8 @@ interface ThemeContextType {
   toggleLanguage: () => void;
   name: string | null;
   setName: (name: string) => void;
+  isFirstLogin: boolean; 
+  setFirstLogin: (value: boolean) => void;
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
@@ -15,13 +18,15 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [language, setLanguage] = useState('fa_IR');
-  const [name, setName] = useState<string | null>(null); 
+  const [name, setName] = useState<string | null>(null);
+  const [isFirstLogin, setIsFirstLogin] = useState(false); 
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     const storedTheme = localStorage.getItem('theme');
     const storedLanguage = localStorage.getItem('language');
-    const storedName = localStorage.getItem('name'); 
+    const storedName = localStorage.getItem('name');
+    const firstLogin = localStorage.getItem('firstLogin'); 
 
     if (storedTheme) {
       setIsDarkMode(storedTheme === 'dark');
@@ -32,13 +37,17 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     }
 
     if (storedName) {
-      setName(storedName); 
+      setName(storedName);
+    }
+
+    if (!firstLogin) {
+      setIsFirstLogin(true);
+      localStorage.setItem('firstLogin', 'true');
     }
 
     setMounted(true);
   }, []);
 
-  // Persist the theme in localStorage whenever it changes
   useEffect(() => {
     if (isDarkMode) {
       localStorage.setItem('theme', 'dark');
@@ -55,7 +64,7 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
   useEffect(() => {
     if (name) {
-      localStorage.setItem('name', name); // Persist name in localStorage
+      localStorage.setItem('name', name);
     }
   }, [name]);
 
@@ -64,16 +73,24 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     setLanguage(changeLanguage);
   }
 
+  const toggleTheme = () => setIsDarkMode((prev) => !prev);
+
+  const setFirstLoginStatus = (value: boolean) => {
+    setIsFirstLogin(value);
+  }
+
   return (
     <ThemeContext.Provider value={{
       isDarkMode,
-      toggleTheme: () => setIsDarkMode((prev) => !prev),
+      toggleTheme,
       language,
       toggleLanguage,
       name,
-      setName // Allow components to set the name
+      setName,
+      isFirstLogin,
+      setFirstLogin: setFirstLoginStatus, 
     }}>
-      {mounted ? children : null} {/* Prevents mismatches */}
+      {mounted ? children : null} 
     </ThemeContext.Provider>
   );
 };

@@ -11,6 +11,7 @@ const App = () => {
   const [messageTime, setMessageTime] = useState('');
 
 
+
   useEffect(() => {
     const currentHour = new Date().getHours();
     setMessageTime(
@@ -29,7 +30,9 @@ const App = () => {
       minute: '2-digit',
       hour12: language === 'en',
     });
+
     return timeFormatter.format(new Date());
+
   }, [i18n.language]);
 
   const validUserName = () => {
