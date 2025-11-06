@@ -4,11 +4,9 @@ export default {
     in_progress: 'In Progress',
     completed: 'Completed',
   },
-  navigation: {
-    dashboard: 'Dashboard',
-    admin_access: 'Admin Access',
-    users: 'Users',
-    teams: 'Teams',
-    files: 'Files',
-  },
+  message: {
+    good_morning: 'Good Morning',
+    good_afternoon: 'Good Afternoon',
+    good_night: 'Good Night',
+  }
 };

@@ -1,8 +1,8 @@
 import React from 'react';
 import { HomeWidget } from '@myapp/widgets';
 
-const HomePage: React.FC = () => {
+const DashboardPage: React.FC = () => {
   return <HomeWidget />;
 };
 
-export default HomePage;
+export default DashboardPage;

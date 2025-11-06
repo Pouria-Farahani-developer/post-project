@@ -1,36 +1,40 @@
 import React from 'react';
 import {
   DesktopOutlined,
-  FileOutlined,
   PieChartOutlined,
   SunOutlined,
-  TeamOutlined,
   UserOutlined,
 } from '@ant-design/icons';
 import { MenuItem } from '../types';
 import { TFunction } from 'i18next';
+import Link from 'next/link';
 
 const getItem = (
   label: React.ReactNode,
-  key: React.Key,
+  key: string,
   icon?: React.ReactNode,
+  href?: string,
   children?: MenuItem[]
-): MenuItem => {
-  return {
-    key,
-    icon,
-    children,
-    label,
-  } as MenuItem;
+): MenuItem => ({
+  key,
+  icon,
+  children,
+  label: href ? <Link href={href}>{label}</Link> : label,
+});
+
+const routes: Record<string, string> = {
+  dashboard: '/dashboard',
+  tasks: '/tasks',
+  weather: '/weather',
+  settings: '/settings',
 };
 
 export const items = (t: TFunction): MenuItem[] => [
-  getItem(t('sidebar_menu.dashboard'), '1', <PieChartOutlined />),
-  getItem(t('sidebar_menu.manage_task'), '2', <DesktopOutlined />),
-  getItem(t('sidebar_menu.manage_weather'), '3', <SunOutlined />),
-  getItem(t('sidebar_menu.user_setting'), '4', <UserOutlined />),
+  getItem(t('sidebar_menu.dashboard'), 'dashboard', <PieChartOutlined />, routes.dashboard),
+  getItem(t('sidebar_menu.manage_task'), 'tasks', <DesktopOutlined />, routes.tasks),
+  getItem(t('sidebar_menu.manage_weather'), 'weather', <SunOutlined />, routes.weather),
+  getItem(t('sidebar_menu.user_setting'), 'settings', <UserOutlined />, routes.settings),
 ];
-
 
 
 export const stepItems = (t:TFunction) => [
