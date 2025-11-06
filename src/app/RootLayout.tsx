@@ -25,11 +25,33 @@ const MainLayoutChildren = ({ children }: React.PropsWithChildren) => {
     <Layout style={{ minHeight: '100vh' }}>
       <Header
         style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'flex-end',
           textAlign: 'center',
           padding: 0,
         }}
       >
-        <h3 style={{ color: 'white', margin: 0 }}>AppBar</h3>
+
+        <div className='left' style={{ padding: '1rem' }}>
+          <Switch
+            checked={language !== 'fa_IR'}
+            onChange={() => {
+              toggleLanguage();
+            }}
+            style={{ margin: '2rem' }}
+            checkedChildren={'fa'}
+            unCheckedChildren={'en'}
+          />
+
+          <Switch
+            checked={isDarkMode}
+            onChange={toggleTheme}
+            checkedChildren="☀️"
+            unCheckedChildren="🌙"
+          />
+        </div>
+
       </Header>
       <Layout>
         <Sider
@@ -58,27 +80,12 @@ const MainLayoutChildren = ({ children }: React.PropsWithChildren) => {
               }}
             >
               {children}
-              <Switch
-                checked={language !== 'fa_IR'}
-                onChange={() => {
-                  toggleLanguage();
-                }}
-                style={{ margin: '2rem' }}
-                checkedChildren={'fa'}
-                unCheckedChildren={'en'}
-              />
-              <Switch
-                checked={isDarkMode}
-                onChange={toggleTheme}
-                checkedChildren="☀️"
-                unCheckedChildren="🌙"
-              />
             </div>
           </Content>
           <Footer style={{ textAlign: 'center' }}>
             Ant Design ©{new Date().getFullYear()} Created by Ant UED
           </Footer>
-        </Layout> 
+        </Layout>
       </Layout>
     </Layout>
   );
