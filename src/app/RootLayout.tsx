@@ -32,8 +32,7 @@ const MainLayoutChildren = ({ children }: React.PropsWithChildren) => {
           padding: 0,
         }}
       >
-
-        <div className='left' style={{ padding: '1rem' }}>
+        <div className="left" style={{ padding: '1rem' }}>
           <Switch
             checked={language !== 'fa_IR'}
             onChange={() => {
@@ -51,7 +50,6 @@ const MainLayoutChildren = ({ children }: React.PropsWithChildren) => {
             unCheckedChildren="🌙"
           />
         </div>
-
       </Header>
       <Layout>
         <Sider
@@ -62,26 +60,27 @@ const MainLayoutChildren = ({ children }: React.PropsWithChildren) => {
           <div className="demo-logo-vertical" />
           <Menu
             theme="dark"
-            defaultSelectedKeys={['1']}
             mode="inline"
             items={items(t)}
           />
         </Sider>
-        <Layout>
+        <Layout style={{ display: 'flex', flexDirection: 'column' }}>
           <Breadcrumb style={{ margin: '16px' }} items={breadcrumbItems} />
 
-          <Content style={{ margin: '0 16px' }}>
+          <Content style={{ margin: '0 16px', flexGrow: 1 , display:'flex' }}>
             <div
               style={{
                 padding: 24,
-                minHeight: 360,
                 background: colorBgContainer,
                 borderRadius: borderRadiusLG,
+                minHeight:"16rem",
+                flexGrow: 1, 
               }}
             >
               {children}
             </div>
           </Content>
+
           <Footer style={{ textAlign: 'center' }}>
             Ant Design ©{new Date().getFullYear()} Created by Ant UED
           </Footer>
