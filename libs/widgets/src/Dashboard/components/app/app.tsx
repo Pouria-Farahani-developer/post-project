@@ -4,16 +4,16 @@ import { useTheme } from 'libs/ui-kit/src/theme/ThemeContext';
 import { useEffect, useState, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
+
 const App = () => {
   const { t, i18n } = useTranslation();
-  const {name} = useTheme()
-  const [greeting, setGreeting] = useState('');
+  const { name } = useTheme()
+  const [messageTime, setMessageTime] = useState('');
 
 
   useEffect(() => {
     const currentHour = new Date().getHours();
-
-    setGreeting(
+    setMessageTime(
       currentHour >= 5 && currentHour < 12
         ? 'message.good_morning'
         : currentHour >= 12 && currentHour < 18
@@ -32,18 +32,17 @@ const App = () => {
     return timeFormatter.format(new Date());
   }, [i18n.language]);
 
-  const  validUserName = () => {
-    if(name){
+  const validUserName = () => {
+    if (name) {
       return name
     }
-
     return ''
   }
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
       <p>{formattedTime}</p>
-      <p>{`${t(greeting)} ${validUserName()}`}</p>
+      <p>{`${t(messageTime)} ${validUserName()}`}</p>
     </div>
   );
 };

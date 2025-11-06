@@ -6,6 +6,8 @@ import MainLayoutChildren from './RootLayout';
 import "../global.css"
 
 const RootLayout = ({ children }: React.PropsWithChildren) => {
+
+
   return (
     <html lang="fa">
       <body>
