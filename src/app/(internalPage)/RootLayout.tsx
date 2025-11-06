@@ -1,28 +1,49 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { toast, ToastContainer } from 'react-toastify';
+import { Layout, Menu, Switch, theme } from 'antd';
+import { usePathname } from 'next/navigation';
 import 'antd/dist/reset.css';
 import '@ant-design/v5-patch-for-react-19';
-import './global.css';
-import { Layout, Menu, Breadcrumb, Switch, theme } from 'antd';
 import { useTr } from '@myapp/libs/translation';
-import { breadcrumbItems, items } from '../../libs/widgets/src/Home/utils/helper';
+import { items } from '../../../libs/widgets/src/Dashboard/utils/helper';
 import { useTheme } from '@myapp/libs/ui-kit';
 import { Header } from 'antd/es/layout/layout';
+import "../global.css"
 
-const { Content, Footer, Sider } = Layout;
 
 const MainLayoutChildren = ({ children }: React.PropsWithChildren) => {
   const [t] = useTr();
+  const pathname = usePathname()
   const [collapsed, setCollapsed] = useState(true);
-  const { isDarkMode, toggleTheme, toggleLanguage, language } = useTheme();
+  const { isDarkMode, toggleTheme, toggleLanguage, language, isFirstLogin, setFirstLogin } = useTheme();
+  const { Content, Footer, Sider } = Layout;
+
+  const selectedKeys = pathname?.replace(/^\/+/, '');
 
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
 
+  useEffect(() => {
+    if (isFirstLogin) {
+      toast(t('message.config_username'),{type:"warning"});
+      setFirstLogin(false);
+    }
+  }, [isFirstLogin, setFirstLogin, t]);
+
+
   return (
     <Layout style={{ minHeight: '100vh' }}>
+      <ToastContainer
+        position="top-left"
+        pauseOnFocusLoss
+        rtl={true}
+        autoClose={5000}
+        style={{ fontFamily: "IRANSans", fontWeight: '500' }}
+      />
+
       <Header
         style={{
           display: 'flex',
@@ -61,20 +82,19 @@ const MainLayoutChildren = ({ children }: React.PropsWithChildren) => {
           <Menu
             theme="dark"
             mode="inline"
+            selectedKeys={[selectedKeys]}
             items={items(t)}
           />
         </Sider>
         <Layout style={{ display: 'flex', flexDirection: 'column' }}>
-          <Breadcrumb style={{ margin: '16px' }} items={breadcrumbItems} />
-
-          <Content style={{ margin: '0 16px', flexGrow: 1 , display:'flex' }}>
+          <Content style={{ margin: '24px', flexGrow: 1, display: 'flex' }}>
             <div
               style={{
                 padding: 24,
                 background: colorBgContainer,
                 borderRadius: borderRadiusLG,
-                minHeight:"16rem",
-                flexGrow: 1, 
+                minHeight: "16rem",
+                flexGrow: 1,
               }}
             >
               {children}
