@@ -3,6 +3,7 @@ import {
   DesktopOutlined,
   FileOutlined,
   PieChartOutlined,
+  SunOutlined,
   TeamOutlined,
   UserOutlined,
 } from '@ant-design/icons';
@@ -24,18 +25,10 @@ const getItem = (
 };
 
 export const items = (t: TFunction): MenuItem[] => [
-  getItem(t('navigation.dashboard'), '1', <PieChartOutlined />),
-  getItem(t('navigation.admin_access'), '2', <DesktopOutlined />),
-  getItem(t('navigation.users'), 'sub1', <UserOutlined />, [
-    getItem('حمیدرضا', '3'),
-    getItem('سنا', '4'),
-    getItem('شکوفه', '5'),
-  ]),
-  getItem(t('navigation.teams'), 'sub2', <TeamOutlined />, [
-    getItem('تیم اول', '6'),
-    getItem('تیم دوم', '8'),
-  ]),
-  getItem(t('navigation.files'), '9', <FileOutlined />),
+  getItem(t('sidebar_menu.dashboard'), '1', <PieChartOutlined />),
+  getItem(t('sidebar_menu.manage_task'), '2', <DesktopOutlined />),
+  getItem(t('sidebar_menu.manage_weather'), '3', <SunOutlined />),
+  getItem(t('sidebar_menu.user_setting'), '4', <UserOutlined />),
 ];
 
 

@@ -3,6 +3,12 @@ export default {
   search: 'جستجو',
   inbox: 'صندوق ورودی',
   home: 'خانه',
+  sidebar_menu: {
+    dashboard: 'داشبورد',
+    manage_task: 'مدیریت وظایف',
+    manage_weather:'مدیریت آب و هوا',
+    user_setting:'تنظیمات کاربری'
+  },
   button: {
     cancel: 'لغو',
     register: 'ثبت‌نام',
