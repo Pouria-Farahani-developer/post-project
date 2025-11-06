@@ -6,7 +6,7 @@ import '@ant-design/v5-patch-for-react-19';
 import './global.css';
 import { Layout, Menu, Breadcrumb, Switch, theme } from 'antd';
 import { useTr } from '@myapp/libs/translation';
-import { breadcrumbItems, items } from '../../libs/widgets/src/Home/utils/helper';
+import { breadcrumbItems, items } from '../../libs/widgets/src/Dashboard/utils/helper';
 import { useTheme } from '@myapp/libs/ui-kit';
 import { Header } from 'antd/es/layout/layout';
 
