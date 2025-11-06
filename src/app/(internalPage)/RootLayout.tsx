@@ -3,12 +3,14 @@
 import React, { useState } from 'react';
 import 'antd/dist/reset.css';
 import '@ant-design/v5-patch-for-react-19';
-import './global.css';
-import { Layout, Menu, Breadcrumb, Switch, theme } from 'antd';
+import { Layout, Menu,  Switch, theme } from 'antd';
 import { useTr } from '@myapp/libs/translation';
-import { breadcrumbItems, items } from '../../libs/widgets/src/Dashboard/utils/helper';
+import {  items } from '../../../libs/widgets/src/Dashboard/utils/helper';
 import { useTheme } from '@myapp/libs/ui-kit';
 import { Header } from 'antd/es/layout/layout';
+import "../global.css"
+
+
 
 const { Content, Footer, Sider } = Layout;
 
@@ -65,9 +67,7 @@ const MainLayoutChildren = ({ children }: React.PropsWithChildren) => {
           />
         </Sider>
         <Layout style={{ display: 'flex', flexDirection: 'column' }}>
-          <Breadcrumb style={{ margin: '16px' }} items={breadcrumbItems} />
-
-          <Content style={{ margin: '0 16px', flexGrow: 1 , display:'flex' }}>
+          <Content style={{ margin: '24px', flexGrow: 1 , display:'flex' }}>
             <div
               style={{
                 padding: 24,
