@@ -1,4 +1,3 @@
-'use client';
 
 import { useTheme } from 'libs/ui-kit/src/theme/ThemeContext';
 import { useEffect, useState, useMemo } from 'react';

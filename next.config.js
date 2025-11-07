@@ -1,4 +1,4 @@
-//@ts-check
+// @ts-check
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const { composePlugins, withNx } = require('@nx/next');
@@ -16,6 +16,16 @@ const nextConfig = {
   compiler: {
     // For other options, see https://styled-components.com/docs/tooling#babel-plugin
     styledComponents: true,
+  },
+
+  async redirects() {
+    return [
+      {
+        source: '/',
+        destination: '/dashboard', 
+        permanent: true, 
+      },
+    ];
   },
 };
 
