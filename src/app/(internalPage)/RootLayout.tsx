@@ -3,13 +3,15 @@
 import React, { useEffect, useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import { Layout, Menu, Switch, theme } from 'antd';
+import { Header } from 'antd/es/layout/layout';
 import { usePathname } from 'next/navigation';
 import 'antd/dist/reset.css';
 import '@ant-design/v5-patch-for-react-19';
+
 import { useTr } from '@myapp/libs/translation';
-import { items } from '../../../libs/widgets/src/Dashboard/utils/helper';
+import { items } from '@myapp/utils';
 import { useTheme } from '@myapp/libs/ui-kit';
-import { Header } from 'antd/es/layout/layout';
+
 import "../global.css"
 
 

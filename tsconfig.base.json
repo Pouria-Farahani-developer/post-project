@@ -23,6 +23,7 @@
       "@myapp/libs/translation/server": ["libs/translation/src/server.ts"],
       "@myapp/libs/ui-kit": ["libs/ui-kit/src/index.ts"],
       "@myapp/libs/ui-kit/server": ["libs/ui-kit/src/server.ts"],
+      "@myapp/utils": ["libs/utils/src/index.ts"],
       "@myapp/widgets": ["libs/widgets/src/index.ts"],
       "@myapp/widgets/server": ["libs/widgets/src/server.ts"]
     }
