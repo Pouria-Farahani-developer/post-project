@@ -24,15 +24,15 @@ const getItem = (
 
 const routes: Record<string, string> = {
   dashboard: '/dashboard',
-  tasks: '/tasks',
-  weather: '/weather',
+  tasks: '/task-setting',
+  weather: '/weather-setting',
   setting: '/user-setting',
 };
 
 export const items = (t: TFunction): MenuItem[] => [
   getItem(t('sidebar_menu.dashboard'), 'dashboard', <PieChartOutlined />, routes.dashboard),
-  getItem(t('sidebar_menu.manage_task'), 'tasks', <DesktopOutlined />, routes.tasks),
-  getItem(t('sidebar_menu.manage_weather'), 'weather', <SunOutlined />, routes.weather),
+  getItem(t('sidebar_menu.manage_task'), 'task-setting', <DesktopOutlined />, routes.tasks),
+  getItem(t('sidebar_menu.manage_weather'), 'weather-setting', <SunOutlined />, routes.weather),
   getItem(t('sidebar_menu.user_setting'), 'user-setting', <UserOutlined />, routes.setting),
 ];
 

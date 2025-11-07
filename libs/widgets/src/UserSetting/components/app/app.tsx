@@ -1,5 +1,5 @@
 import { Button, Form, Input } from "antd";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useTr } from "@myapp/libs/translation";
 import { useTheme } from "libs/ui-kit/src/theme/ThemeContext";
 
