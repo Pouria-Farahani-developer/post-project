@@ -1,23 +1,26 @@
-import { useState } from "react";
-import { useTr } from "@myapp/libs/translation";
+import React, { useState } from "react";
 import { Button, Input } from "antd";
 import { toast } from "react-toastify";
+
+import { useTr } from "@myapp/libs/translation";
+
 import { Todo } from "../../types";
 
+import * as S from "./app.style";
 
-
-const App = () => {
+const App: React.FC = () => {
   const [t] = useTr();
   const [todos, setTodos] = useState<Todo[]>([]);
-  const [inputValue, setInputValue] = useState("");
-  const [editingId, setEditingId] = useState<number | null>(null);
+  const [inputValue, setInputValue] = useState<string>("");
+  const [editingId, setEditingId] = useState<string | null>(null);
 
-  const handleAddOrUpdate = () => {
+  const handleAddOrUpdate = (): void => {
     const value = inputValue.trim();
+
     if (!value) {
-      toast('لطفا تسک خود را وارد کنید', { type: 'error' })
-      return ''
-    };
+      toast(t("alert.insert_task"), { type: "error" });
+      return;
+    }
 
     if (editingId !== null) {
       setTodos((prev) =>
@@ -29,7 +32,7 @@ const App = () => {
       setInputValue("");
     } else {
       const newTodo: Todo = {
-        id: Date.now(),
+        id: crypto.randomUUID(),
         text: value,
       };
       setTodos((prev) => [...prev, newTodo]);
@@ -37,15 +40,22 @@ const App = () => {
     }
   };
 
-  const handleEdit = (id: number) => {
+  const handleEdit = (id: string): void => {
     const todo = todos.find((t) => t.id === id);
     if (!todo) return;
-    toast(`رکورد ${todo.text} در حال ویرایش`,{type:'warning'})
+
+    toast(
+      t("alert.edit_task", {
+        record: todo.text,
+      }),
+      { type: "info" }
+    );
+
     setEditingId(id);
     setInputValue(todo.text);
   };
 
-  const handleDelete = (id: number) => {
+  const handleDelete = (id: string): void => {
     setTodos((prev) => prev.filter((item) => item.id !== id));
     if (editingId === id) {
       setEditingId(null);
@@ -53,49 +63,45 @@ const App = () => {
     }
   };
 
+  const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    setInputValue(e.target.value);
+  };
+
   return (
     <div>
-      <h1 style={{ textAlign: 'center' }}>{t('todo_list')}</h1>
+      <S.Header>{t("todo_list")}</S.Header>
 
-      <div style={{ display: "flex", gap: 8, marginBottom: 16, alignItems: 'center' }}>
+      <S.Filter>
         <Input
           type="text"
           value={inputValue}
-          placeholder={t('input_placeholder')}
-          onChange={(e) => setInputValue(e.target.value)}
-          onPressEnter={handleAddOrUpdate} 
-          style={{ flex: 1, padding: 8 }}
+          placeholder={t("input_placeholder")}
+          onChange={handleChangeInput}
+          onPressEnter={handleAddOrUpdate}
         />
-        <Button size="large"  onClick={handleAddOrUpdate}>
-          {editingId !== null ? t('update') : t('add')}
+        <Button size="large" onClick={handleAddOrUpdate}>
+          {editingId !== null ? t("update") : t("add")}
         </Button>
-      </div>
+      </S.Filter>
 
       {todos.length === 0 ? (
-        <p>{t('empty_box_message')}</p>
+        <p>{t("empty_box_message")}</p>
       ) : (
-        <ul style={{ listStyle: "none", padding: 0 }}>
-          {todos.map((todo) => (
-            <li
-              key={todo.id}
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                marginBottom: 8,
-                padding: 8,
-                border: "1px solid #ddd",
-                borderRadius: 4,
-              }}
-            >
+        <S.List>
+          {todos.map((todo: Todo) => (
+            <li className="list-item" key={todo.id}>
               <span>{todo.text}</span>
-              <div style={{ display: "flex", gap: 8 }}>
-                <Button onClick={() => handleEdit(todo.id)}>ادیت</Button>
-                <Button onClick={() => handleDelete(todo.id)}>حذف</Button>
+              <div className="action-btn">
+                <Button onClick={() => handleEdit(todo.id)}>
+                  {t("update")}
+                </Button>
+                <Button onClick={() => handleDelete(todo.id)}>
+                  {t("delete")}
+                </Button>
               </div>
             </li>
           ))}
-        </ul>
+        </S.List>
       )}
     </div>
   );

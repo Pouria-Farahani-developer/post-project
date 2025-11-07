@@ -1,3 +1,4 @@
-export const AVAILABLE_ROWS_PER_PAGE = [5, 10, 25, 50, 100];
-export const INITIAL_ROW_PER_PAGE = AVAILABLE_ROWS_PER_PAGE[0];
-export const INITIAL_PAGE = 1;
+export const FA = 'fa'  as const
+export const EN = 'en' as const
+export const FA_IR = 'fa_IR' as const
+export const DIGIT = '2-digit' as const
