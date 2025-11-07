@@ -1,6 +1,7 @@
 export default {
-  form:{
-    full_name:'نام و نام خانوادگی :',
-    submit:'ارسال'
-  }
+  todo_list:'لیست کارها',
+  input_placeholder :  'یک کار جدید وارد کن ...',
+  add:'افزودن',
+  update:'ویرایش',
+  empty_box_message:'هنوز کاری اضافه نکردی',
 };

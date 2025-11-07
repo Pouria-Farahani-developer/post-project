@@ -1,3 +1,5 @@
-import type { MenuProps } from 'antd';
+export type Todo = {
+  id: number;
+  text: string;
+}
 
-export type MenuItem = Required<MenuProps>['items'][number];
