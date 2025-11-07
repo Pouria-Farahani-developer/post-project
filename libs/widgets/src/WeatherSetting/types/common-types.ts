@@ -1,3 +1,7 @@
-import type { MenuProps } from 'antd';
+export type CityOption = {
+  value: string;
+  country: string;
+  lat: string;
+  lng: string;
+}
 
-export type MenuItem = Required<MenuProps>['items'][number];

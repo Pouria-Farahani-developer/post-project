@@ -1,25 +1,19 @@
-import axios from 'axios';
+import axios, { AxiosInstance } from "axios";
 
-const baseUrl = 'https://jsonplaceholder.typicode.com/';
+const BASE_URL = "https://api.open-meteo.com/";
 
-
-const client = axios.create({
-  baseURL: baseUrl,
+const client: AxiosInstance = axios.create({
+  baseURL: BASE_URL,
   timeout: 120000,
   headers: {
-    'Content-Type': 'application/json;charset=UTF-8',
+    "Content-Type": "application/json;charset=UTF-8",
   },
-  withCredentials: true,
+  withCredentials: false,
 });
 
-
 client.interceptors.response.use(
-  (response) => {
-    return response;
-  },
-  async (error) => {
-    return Promise.reject(error);
-  }
+  (response) => response,
+  (error) => Promise.reject(error)
 );
 
 export default client;

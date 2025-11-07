@@ -1,8 +1,9 @@
+import { WeatherSettingWidget } from '@myapp/widgets';
 import React from 'react';
-import { UserSettingWidget } from '@myapp/widgets';
+
 
 const WeatherSettingPage: React.FC = () => {
-  return <UserSettingWidget />;
+  return <WeatherSettingWidget />;
 };
 
 export default WeatherSettingPage;
