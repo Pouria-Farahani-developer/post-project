@@ -1,7 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Button, Form, Input } from "antd";
+
 import { useTr } from "@myapp/libs/translation";
+
 import { useTheme } from "libs/ui-kit/src/theme/ThemeContext";
+
 import { FormValues } from "../../types";
 import { FORM_ITEM_NAMES } from "../../utils/const";
 
@@ -10,13 +13,15 @@ const App: React.FC = () => {
   const [form] = Form.useForm<FormValues>();
   const { name, setName } = useTheme();
 
-  useEffect(() => {
-    if (!name) return;
+
+  const handleChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+    const value = e.target.value;
+    setName(value);
 
     form.setFieldsValue({
-      [FORM_ITEM_NAMES.FULL_NAME]: name,
+      [FORM_ITEM_NAMES.FULL_NAME]: value,
     });
-  }, [name, form]); 
+  };
 
   const handleFinish = (values: FormValues): void => {
     const fullName = values[FORM_ITEM_NAMES.FULL_NAME];
@@ -25,12 +30,19 @@ const App: React.FC = () => {
 
   return (
     <div>
-      <Form layout="vertical" form={form} onFinish={handleFinish}>
+      <Form
+        layout="vertical"
+        form={form}
+        onFinish={handleFinish}
+        initialValues={{
+          [FORM_ITEM_NAMES.FULL_NAME]: name ?? "",
+        }}
+      >
         <Form.Item
           name={FORM_ITEM_NAMES.FULL_NAME}
           label={t("form.full_name")}
         >
-          <Input />
+          <Input onChange={handleChange} />
         </Form.Item>
       </Form>
       <Button onClick={() => form.submit()}>{t("form.submit")}</Button>
