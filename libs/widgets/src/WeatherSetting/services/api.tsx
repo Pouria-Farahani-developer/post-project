@@ -6,7 +6,7 @@ const api = {
     return Mockify.CityInfo();
   },
 
-  WeatherInfo: (lat:any,long:any) => {
+  WeatherInfo: (lat:string,long:string) => {
     return client.get('v1/forecast', {
       params: {
         latitude: lat,

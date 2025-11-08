@@ -1,37 +1,43 @@
-import { Card } from "antd";
+import { useTr } from '@myapp/libs/translation';
+
 import { useAppState } from "../../context";
 
+import * as S from './card.style'
+
 const WeatherCard = () => {
+  const [t] = useTr()
   const { table : {submit : {weatherJson , weatherLoading}} } = useAppState();
-  
+
 
   if (!weatherLoading && !weatherJson) {
     return null;
   }
 
+
+
   return (
-    <Card style={{ margin: "2.4rem" }} title="وضعیت آب و هوا">
-      {weatherLoading && <p>در حال دریافت وضعیت هوا...</p>}
+    <S.Card title={t('weather_condition')}>
+      {weatherLoading && <p>{t('fetching_weather')}</p>}
 
       {!weatherLoading && weatherJson && (
         <>
-          <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 8 }}>
-            <span>دما</span>
+          <S.Row>
+            <span>{t('temperature')}</span>
             <span>{weatherJson.temperature ?? "-"} °C</span>
-          </div>
+          </S.Row>
 
-          <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 8 }}>
-            <span>سرعت باد</span>
+          <S.Row>
+            <span>{t('wind_speed')}</span>
             <span>{weatherJson.windspeed ?? "-"} km/h</span>
-          </div>
+          </S.Row>
 
-          <div style={{ display: "flex", justifyContent: "space-between" }}>
-            <span>جهت باد</span>
+          <S.Row>
+            <span>{t('wind_direction')}</span>
             <span>{weatherJson.winddirection ?? "-"}°</span>
-          </div>
+          </S.Row>
         </>
       )}
-    </Card>
+    </S.Card>
   );
 };
 
