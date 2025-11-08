@@ -1,20 +1,26 @@
 import { useEffect, useState } from "react";
 import { AutoComplete } from "antd";
+import { updateSubmitAction, useAppDispatch } from "../../context";
+
+import { useTr } from '@myapp/libs/translation';
+
 import { CityOption } from "../../types";
 import api from "../../services/api";
 import { normalize } from "../../utils";
-import { updateSubmitAction, useAppDispatch } from "../../context";
+
+import * as S from './filter.style'
 
 
 
 
 const Filter = () => {
+    const [t] = useTr();
     const [options, setOptions] = useState<CityOption[]>([]);
     const [allOptions, setAllOptions] = useState<CityOption[]>([]);
     const [loading, setLoading] = useState(false);
     const dispatch = useAppDispatch()
-    //   const [weather, setWeather] = useState<any | null>(null);
-    //   const [weatherLoading, setWeatherLoading] = useState(false);
+
+
 
 
 
@@ -33,7 +39,7 @@ const Filter = () => {
             setAllOptions(cityOptions);
             setOptions(cityOptions);
         } catch (error) {
-            console.error("❌ خطا هنگام دریافت اطلاعات شهرها:", error);
+            console.error("errors", error);
         } finally {
             setLoading(false);
         }
@@ -64,30 +70,38 @@ const Filter = () => {
 
       const onSelect = async (value: string, option: CityOption) => {
         try {
+          updateSubmitAction(dispatch,{weatherLoading:true});
+
           const res = await api.WeatherInfo(option.lat, option.lng);
 
           updateSubmitAction(dispatch,{weatherJson:res.data.current_weather});
         } catch (error) {
-          console.error("❌ خطا هنگام دریافت هوا:", error);
+          console.error("errors", error);
         } finally {
-          updateSubmitAction(dispatch,{weatweatherLoading : false});
+          updateSubmitAction(dispatch,{weatherLoading:false});
         }
       };
 
 
+      const handleClear = () => {
+        updateSubmitAction(dispatch,{weatherJson:null});
+      }
+
+
 
     return (
-        <div style={{ width: "100%" }}>
+      <S.FilterContainer>
             <AutoComplete
                 options={options}
                 style={{ width: "100%" }}
                 allowClear
                 onSelect={onSelect}
+                onClear={handleClear}
                 onSearch={onSearch}
-                placeholder="لطفا شهر خود را وارد کنید"
-                notFoundContent={loading ? "در حال بارگذاری..." : "موردی یافت نشد"}
+                placeholder={t('select_city')}
+                notFoundContent={loading ? t('loading') : t('no_content')}
             />
-        </div>
+      </S.FilterContainer>
     );
 };
 
